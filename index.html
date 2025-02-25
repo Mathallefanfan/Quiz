@@ -175,7 +175,7 @@
         Choisissez un fichier contenant le vocabulaire<br>
         <span>(format mot français ; mot anglais type format CSV)</span>
     </div>
-    <input type="file" id="fileInput" accept=".txt, .csv">
+    <input type="file" id="fileInput" accept=".txt, .csv"> <!-- Accepte maintenant .txt et .csv -->
     <div class="container">
         <div>
             <div id="translation-container" class="word-box" style="display: none;">Cliquez pour commencer</div>
@@ -196,10 +196,17 @@
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
+                
+                // Assurez-vous que le fichier est bien lu en UTF-8
                 reader.onload = function(e) {
-                    const lines = e.target.result.split('\n');
+                    const text = e.target.result;  // Lire le contenu du fichier
+                    const decoder = new TextDecoder("utf-8");  // Spécifier l'encodage UTF-8
+                    const decodedText = decoder.decode(new TextEncoder().encode(text)); // Décoder le texte
+
+                    const lines = decodedText.split('\n');
                     vocabulary = lines.flatMap(line => {
-                        const parts = line.split(';');
+                        // Pour un CSV avec des mots séparés par des virgules
+                        const parts = line.split(','); // Modifiez cela si votre fichier utilise un autre séparateur
                         if (parts.length === 2) {
                             return [
                                 { word: parts[0].trim(), translation: parts[1].trim(), language: "(Français)" },
@@ -212,7 +219,8 @@
                     document.getElementById("translation-container").style.display = "flex";
                     document.getElementById("fileInput").style.display = "none";
                 };
-                reader.readAsText(file);
+                
+                reader.readAsText(file, "UTF-8");  // Lire le fichier en spécifiant l'encodage UTF-8
             }
         });
 
@@ -228,7 +236,7 @@
 
         function showTranslation() {
             if (vocabulary.length === 0) {
-                alert("Veuillez charger un fichier texte valide.");
+                alert("Veuillez charger un fichier CSV valide.");
                 return;
             }
 
