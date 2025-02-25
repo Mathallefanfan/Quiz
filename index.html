@@ -20,21 +20,21 @@
         }
         h2 {
             color: #fff;
-            font-size: 36px;
+            font-size: 3.5vw; 
             font-weight: bold;
             margin-bottom: 20px;
             letter-spacing: 2px;
         }
         h1 {
             color: #fff;
-            font-size: 28px;
-            margin-bottom: 40px; /* Espacement de 2 lignes (env. 2rem) */
+            font-size: 2.8vw; 
+            margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .instruction {
             color: #fff;
-            font-size: 18px;
+            font-size: 2vw;
             margin-bottom: 30px;
             font-weight: 400;
         }
@@ -46,18 +46,20 @@
             flex-direction: column;
             align-items: center;
             gap: 30px;
-            max-width: 380px; /* Réduit la largeur à 380px */
+            max-width: 90%;
             width: 100%;
-            padding: 0 15px; /* Ajoute du padding horizontal */
+            padding: 0 10%;
         }
         .word-box {
-            font-size: 24px;
-            padding: 20px;
+            font-size: 3vw;
+            padding: 15px;
             border-radius: 15px;
-            background: #f0f0f0; /* Gris clair */
+            background: #f0f0f0;
             color: #333;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            width: 100%;  /* Adapte la largeur à 100% pour s'ajuster à l'écran */
+            width: 100%;
+            max-width: 450px;
+            min-width: 350px; /* Taille minimum plus large */
             height: 80px;
             display: flex;
             align-items: center;
@@ -79,11 +81,11 @@
             cursor: pointer;
             background: transparent;
             color: #fff;
-            font-size: 18px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            width: 80%; /* Réduit la largeur du champ de fichier */
-            max-width: 350px; /* Limite la largeur à 350px */
-            box-sizing: border-box; /* Assure que le padding est pris en compte dans la largeur totale */
+            font-size: 1.8vw;
+            width: 80%;
+            max-width: 350px;
+            min-width: 250px; /* Taille minimum du bouton plus large */
+            box-sizing: border-box;
         }
         input[type="file"]:hover {
             background-color: #fff;
@@ -94,42 +96,61 @@
             border-color: #0fbcf9;
         }
         .indicator {
-            font-size: 16px;
+            font-size: 1.6vw;
             color: #333;
             margin-top: 5px;
             font-weight: 400;
         }
 
-        /* Espacement entre les conteneurs */
         #translation-container {
-            margin-bottom: 20px; /* Espacement entre les deux conteneurs */
+            margin-bottom: 20px;
         }
 
-        /* Media query pour les petits écrans (iPhone 12 et autres petits appareils) */
-        @media (max-width: 390px) {
+        /* Media Queries pour les écrans plus petits (mobiles, tablettes) */
+        @media (max-width: 768px) {
             .container {
-                max-width: 100%; /* Remplace la largeur fixe par une largeur de 100% */
-                padding: 0 15px; /* Ajoute un peu de padding horizontal */
+                padding: 0 5%;
             }
-            .word-box {
-                width: 100%; /* Adapte la largeur à 100% pour s'ajuster à l'écran */
-                font-size: 20px; /* Réduit légèrement la taille de la police pour les petits écrans */
-            }
+
             h2 {
-                font-size: 28px; /* Réduit la taille du titre */
+                font-size: 5vw;
             }
             h1 {
-                font-size: 22px; /* Réduit la taille du sous-titre */
+                font-size: 4.5vw;
             }
-            .instruction {
-                font-size: 16px; /* Réduit la taille de la police des instructions */
+            .word-box {
+                font-size: 4vw;
+                padding: 10px;
+            }
+            input[type="file"] {
+                font-size: 4vw;
+                width: 85%;
+                min-width: 280px; /* Ajuste le minimum pour un meilleur rendu sur mobile */
+            }
+        }
+
+        /* Pour les très petits écrans comme les téléphones (moins de 480px) */
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 6vw;
+            }
+            h1 {
+                font-size: 5.5vw;
+            }
+            .word-box {
+                font-size: 5vw;
+            }
+            input[type="file"] {
+                font-size: 5vw;
+                width: 90%;
+                min-width: 250px; /* Minimum défini pour éviter que ce soit trop petit */
             }
         }
     </style>
 </head>
 <body>
-    <h2>Quiz Carpediem</h2> <!-- Titre du quiz -->
-    <h1>Français - Anglais</h1> <!-- Titre modifié -->
+    <h2>Quiz Carpediem</h2>
+    <h1>Français - Anglais</h1>
     <div id="instruction-text" class="instruction">
         Choisissez un fichier contenant le vocabulaire<br>
         <span>(format mot français ; mot anglais type format CSV)</span>
@@ -141,10 +162,10 @@
         </div>
         <div>
             <div id="word-container" class="word-box" style="display: none;"></div>
-            <div id="word-indicator" class="indicator"></div> <!-- Indicateur sous word-container -->
+            <div id="word-indicator" class="indicator"></div>
         </div>
     </div>
-    
+
     <script>
         let vocabulary = [];
         let currentIndex = -1;
@@ -167,7 +188,6 @@
                         }
                         return [];
                     });
-                    // Masquer la phrase d'instruction et afficher la fenêtre avec "Cliquez pour commencer"
                     document.getElementById("instruction-text").style.display = "none";
                     document.getElementById("translation-container").style.display = "flex";
                     document.getElementById("fileInput").style.display = "none";
@@ -211,7 +231,6 @@
             }
         }
 
-        // Le gestionnaire d'événements est attaché sur le mot "Cliquez pour commencer"
         document.getElementById("translation-container").addEventListener("click", function() {
             const wordContainer = document.getElementById("word-container");
             if (wordContainer.style.display === "none") {
@@ -219,7 +238,6 @@
             }
         });
         
-        // Ajout de l'événement de clic sur word-container pour changer entre le mot et sa traduction
         document.getElementById("word-container").addEventListener("click", function() {
             showTranslation();
         });
