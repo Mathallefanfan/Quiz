@@ -54,6 +54,12 @@
             background: #007BFF;
             color: #fff;
         }
+        #requested-word {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +74,7 @@
             <div id="translation-container" class="word-box"></div>
             <div id="translation-indicator" class="indicator"></div>
         </div>
+        <div id="requested-word"></div>
     </div>
     
     <script>
@@ -119,23 +126,12 @@
             const translationContainer = document.getElementById("translation-container");
             const wordIndicator = document.getElementById("word-indicator");
             const translationIndicator = document.getElementById("translation-indicator");
-            
+            const requestedWordContainer = document.getElementById("requested-word");
+
             if (!showingTranslation) {
                 currentIndex = getRandomIndex();
                 if (currentIndex === -1) return;
                 wordContainer.textContent = vocabulary[currentIndex].word;
                 translationContainer.textContent = "?";
                 wordIndicator.textContent = vocabulary[currentIndex].language;
-                translationIndicator.textContent = "";
-                showingTranslation = true;
-            } else {
-                translationContainer.textContent = vocabulary[currentIndex].translation;
-                translationIndicator.textContent = vocabulary[currentIndex].language === "(Français)" ? "(Anglais)" : "(Français)";
-                showingTranslation = false;
-            }
-        }
-        
-        document.getElementById("word-container").addEventListener("click", showTranslation);
-    </script>
-</body>
-</html>
+                translati
