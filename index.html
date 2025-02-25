@@ -197,16 +197,18 @@
             if (file) {
                 const reader = new FileReader();
                 
-                // Assurez-vous que le fichier est bien lu en UTF-8
+                // Lecture du fichier avec encodage UTF-8
                 reader.onload = function(e) {
                     const text = e.target.result;  // Lire le contenu du fichier
-                    const decoder = new TextDecoder("utf-8");  // Spécifier l'encodage UTF-8
+
+                    // Utilisation de TextDecoder pour assurer le bon encodage
+                    const decoder = new TextDecoder("utf-8"); 
                     const decodedText = decoder.decode(new TextEncoder().encode(text)); // Décoder le texte
 
                     const lines = decodedText.split('\n');
                     vocabulary = lines.flatMap(line => {
                         // Pour un CSV avec des mots séparés par des virgules
-                        const parts = line.split(','); // Modifiez cela si votre fichier utilise un autre séparateur
+                        const parts = line.split(';'); // Assurez-vous d'utiliser le bon séparateur (; ou ,)
                         if (parts.length === 2) {
                             return [
                                 { word: parts[0].trim(), translation: parts[1].trim(), language: "(Français)" },
@@ -270,5 +272,4 @@
             showTranslation();
         });
     </script>
-</body>
-</html>
+</body
