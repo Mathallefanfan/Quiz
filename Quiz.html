@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulaire Aléatoire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            font-size: 22px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .word-box {
+            font-size: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 300px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .indicator {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+        input[type="file"] {
+            margin: 15px;
+            padding: 10px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #fff;
+        }
+        input[type="file"]:hover {
+            background: #007BFF;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vocabulaire Français - Anglais</h1>
+    <input type="file" id="fileInput" accept=".txt">
+    <div class="container">
+        <div>
+            <div id="word-container" class="word-box">Chargez un fichier pour commencer</div>
+            <div id="word-indicator" class="indicator"></div>
+        </div>
+        <div>
+            <div id="translation-container" class="word-box"></div>
+            <div id="translation-indicator" class="indicator"></div>
+        </div>
+    </div>
+    
+    <script>
+        let vocabulary = [];
+        let currentIndex = -1;
+        let previousIndex = -1;
+        let showingTranslation = false;
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const lines = e.target.result.split('\n');
+                    vocabulary = lines.flatMap(line => {
+                        const parts = line.split(';');
+                        if (parts.length === 2) {
+                            return [
+                                { word: parts[0].trim(), translation: parts[1].trim(), language: "(Français)" },
+                                { word: parts[1].trim(), translation: parts[0].trim(), language: "(Anglais)" }
+                            ];
+                        }
+                        return [];
+                    });
+                    document.getElementById("word-container").textContent = "Cliquez pour commencer";
+                    document.getElementById("fileInput").style.display = "none";
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function getRandomIndex() {
+            if (vocabulary.length === 0) return -1;
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * vocabulary.length);
+            } while (newIndex === previousIndex);
+            previousIndex = newIndex;
+            return newIndex;
+        }
+
+        function showTranslation() {
+            if (vocabulary.length === 0) {
+                alert("Veuillez charger un fichier texte valide.");
+                return;
+            }
+
+            const wordContainer = document.getElementById("word-container");
+            const translationContainer = document.getElementById("translation-container");
+            const wordIndicator = document.getElementById("word-indicator");
+            const translationIndicator = document.getElementById("translation-indicator");
+            
+            if (!showingTranslation) {
+                currentIndex = getRandomIndex();
+                if (currentIndex === -1) return;
+                wordContainer.textContent = vocabulary[currentIndex].word;
+                translationContainer.textContent = "?";
+                wordIndicator.textContent = vocabulary[currentIndex].language;
+                translationIndicator.textContent = "";
+                showingTranslation = true;
+            } else {
+                translationContainer.textContent = vocabulary[currentIndex].translation;
+                translationIndicator.textContent = vocabulary[currentIndex].language === "(Français)" ? "(Anglais)" : "(Français)";
+                showingTranslation = false;
+            }
+        }
+        
+        document.getElementById("word-container").addEventListener("click", showTranslation);
+    </script>
+</body>
+</html>
