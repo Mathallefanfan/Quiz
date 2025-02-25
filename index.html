@@ -20,14 +20,14 @@
         }
         h2 {
             color: #fff;
-            font-size: 3.5vw; 
+            font-size: 3.5vw;
             font-weight: bold;
             margin-bottom: 20px;
             letter-spacing: 2px;
         }
         h1 {
             color: #fff;
-            font-size: 2.8vw; 
+            font-size: 2.8vw;
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -58,8 +58,8 @@
             color: #333;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 450px;
-            min-width: 350px; /* Taille minimum plus large */
+            max-width: 500px;
+            min-width: 450px; /* Taille minimale augmentée */
             height: 80px;
             display: flex;
             align-items: center;
@@ -83,8 +83,8 @@
             color: #fff;
             font-size: 1.8vw;
             width: 80%;
-            max-width: 350px;
-            min-width: 250px; /* Taille minimum du bouton plus large */
+            max-width: 400px;
+            min-width: 300px; /* Augmenté pour le bouton */
             box-sizing: border-box;
         }
         input[type="file"]:hover {
@@ -121,11 +121,12 @@
             .word-box {
                 font-size: 4vw;
                 padding: 10px;
+                min-width: 400px; /* Ajuste la largeur minimale sur mobile */
             }
             input[type="file"] {
                 font-size: 4vw;
                 width: 85%;
-                min-width: 280px; /* Ajuste le minimum pour un meilleur rendu sur mobile */
+                min-width: 300px; /* Ajuste la largeur minimale du bouton */
             }
         }
 
@@ -139,11 +140,12 @@
             }
             .word-box {
                 font-size: 5vw;
+                min-width: 400px; /* Augmente légèrement la taille minimum sur les petits écrans */
             }
             input[type="file"] {
                 font-size: 5vw;
                 width: 90%;
-                min-width: 250px; /* Minimum défini pour éviter que ce soit trop petit */
+                min-width: 300px; /* Ajuste le minimum pour un meilleur rendu sur mobile */
             }
         }
     </style>
