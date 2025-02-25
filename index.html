@@ -34,7 +34,7 @@
         }
         .instruction {
             color: #fff;
-            font-size: 2vw;
+            font-size: 2.5vw; /* Agrandi la taille de la phrase de départ */
             margin-bottom: 30px;
             font-weight: 400;
         }
@@ -96,7 +96,7 @@
             border-color: #0fbcf9;
         }
         .indicator {
-            font-size: 1.6vw;
+            font-size: 2.5vw; /* Agrandi la taille de l'indicateur */
             color: #333;
             margin-top: 5px;
             font-weight: 400;
@@ -128,6 +128,14 @@
                 width: 85%;
                 min-width: 300px; /* Ajuste la largeur minimale du bouton */
             }
+
+            /* Agrandir la taille de la phrase et de l'indicateur sur les petits écrans */
+            .instruction {
+                font-size: 4vw;
+            }
+            .indicator {
+                font-size: 4vw;
+            }
         }
 
         /* Pour les très petits écrans comme les téléphones (moins de 480px) */
@@ -146,6 +154,14 @@
                 font-size: 5vw;
                 width: 90%;
                 min-width: 300px; /* Ajuste le minimum pour un meilleur rendu sur mobile */
+            }
+
+            /* Agrandir la taille de la phrase et de l'indicateur encore plus sur les petits écrans */
+            .instruction {
+                font-size: 5.5vw;
+            }
+            .indicator {
+                font-size: 5.5vw;
             }
         }
     </style>
