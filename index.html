@@ -46,7 +46,7 @@
             flex-direction: column;
             align-items: center;
             gap: 30px;
-            max-width: 450px; /* Largeur fixe pour la zone des conteneurs */
+            max-width: 450px; /* Largeur fixe pour les écrans plus larges */
             width: 100%;
         }
         .word-box {
@@ -99,6 +99,27 @@
         /* Espacement entre les conteneurs */
         #translation-container {
             margin-bottom: 20px; /* Espacement entre les deux conteneurs */
+        }
+
+        /* Media query pour les petits écrans (iPhone 12 et autres petits appareils) */
+        @media (max-width: 390px) {
+            .container {
+                max-width: 100%; /* Remplace la largeur fixe par une largeur de 100% */
+                padding: 0 15px; /* Ajoute un peu de padding horizontal pour ne pas toucher les bords de l'écran */
+            }
+            .word-box {
+                width: 100%; /* Adapte la largeur à 100% pour s'ajuster à l'écran */
+                font-size: 20px; /* Réduit légèrement la taille de la police pour les petits écrans */
+            }
+            h2 {
+                font-size: 28px; /* Réduit la taille du titre */
+            }
+            h1 {
+                font-size: 22px; /* Réduit la taille du sous-titre */
+            }
+            .instruction {
+                font-size: 16px; /* Réduit la taille de la police des instructions */
+            }
         }
     </style>
 </head>
