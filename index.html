@@ -200,9 +200,9 @@
                 // Lecture du fichier avec encodage UTF-8
                 reader.onload = function(e) {
                     const text = e.target.result;  // Lire le contenu du fichier
-
-                    // Utilisation de TextDecoder pour assurer le bon encodage
-                    const decoder = new TextDecoder("utf-8"); 
+                    
+                    // Forcer l'encodage UTF-8 en utilisant TextDecoder
+                    const decoder = new TextDecoder("utf-8", {fatal: true});
                     const decodedText = decoder.decode(new TextEncoder().encode(text)); // Décoder le texte
 
                     const lines = decodedText.split('\n');
@@ -272,4 +272,5 @@
             showTranslation();
         });
     </script>
-</body
+</body>
+</html>
